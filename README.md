@@ -356,7 +356,35 @@ crontab -e
 
 ### Common Issues
 
-1. **Permission Errors**
+1. **Directory Listing Instead of Application Loading**
+   
+   If you see a directory listing when visiting `https://api.trythunderbird.com/thunderlog/`, this means the web server is not properly configured:
+   
+   **Solution:**
+   ```bash
+   # Ensure the document root points to the public directory
+   # For Apache, your virtual host should have:
+   # DocumentRoot /var/www/html/thunderlog/public
+   
+   # Check if mod_rewrite is enabled
+   sudo a2enmod rewrite
+   sudo systemctl restart apache2
+   
+   # Verify .htaccess file exists and is readable
+   ls -la /var/www/html/thunderlog/public/.htaccess
+   
+   # Ensure DirectoryIndex is set correctly in your virtual host:
+   # DirectoryIndex index.php index.html
+   ```
+   
+   **For Nginx:**
+   ```nginx
+   # Ensure your server block has:
+   root /var/www/html/thunderlog/public;
+   index index.php index.html index.htm;
+   ```
+
+2. **Permission Errors**
    ```bash
    sudo chown -R www-data:www-data /var/www/html/thunderlog
    sudo chmod -R 755 /var/www/html/thunderlog
@@ -364,18 +392,18 @@ crontab -e
    sudo chmod -R 775 /var/www/html/thunderlog/bootstrap/cache
    ```
 
-2. **Asset Loading Issues**
+3. **Asset Loading Issues**
    ```bash
    npm run build
    php artisan config:cache
    ```
 
-3. **Database Connection Issues**
+4. **Database Connection Issues**
    - Verify database credentials in `.env`
    - Check MySQL service status: `sudo systemctl status mysql`
    - Test connection: `php artisan tinker` then `DB::connection()->getPdo();`
 
-4. **Queue Not Processing**
+5. **Queue Not Processing**
    ```bash
    sudo supervisorctl restart thunderlog-worker:*
    php artisan queue:restart
