@@ -11,15 +11,36 @@ import { useInitials } from '@/hooks/use-initials';
 import { cn } from '@/lib/utils';
 import { type BreadcrumbItem, type NavItem, type SharedData } from '@/types';
 import { Link, usePage } from '@inertiajs/react';
-import { BookOpen, Folder, LayoutGrid, Menu, Search } from 'lucide-react';
+import { LayoutGrid, Menu, Search, Users, FileText, Webhook, UserCheck } from 'lucide-react';
+import { route } from 'ziggy-js';
 import AppLogo from './app-logo';
 import AppLogoIcon from './app-logo-icon';
 
 const mainNavItems: NavItem[] = [
     {
         title: 'Dashboard',
-        href: '/dashboard',
+        href: route('dashboard'),
         icon: LayoutGrid,
+    },
+    {
+        title: 'Users',
+        href: route('users.index'),
+        icon: Users,
+    },
+    {
+        title: 'Submissions',
+        href: route('submissions.index'),
+        icon: FileText,
+    },
+    {
+        title: 'HubSpot Logs',
+        href: route('hubspot-logs.index'),
+        icon: Webhook,
+    },
+    {
+        title: 'Contacts',
+        href: route('contacts.index'),
+        icon: UserCheck,
     },
 ];
 
@@ -85,7 +106,7 @@ export function AppHeader({ breadcrumbs = [] }: AppHeaderProps) {
                         </Sheet>
                     </div>
 
-                    <Link href="/dashboard" prefetch className="flex items-center space-x-2">
+                    <Link href={route('dashboard')} prefetch className="flex items-center space-x-2">
                         <AppLogo />
                     </Link>
 

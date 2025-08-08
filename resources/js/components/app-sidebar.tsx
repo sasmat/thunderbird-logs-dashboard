@@ -5,42 +5,43 @@ import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarMenu, Sid
 import { type NavItem } from '@/types';
 import { Link } from '@inertiajs/react';
 import { BookOpen, LayoutGrid, Users, Activity, UserCheck, FileText, Folder } from 'lucide-react';
+import { route } from 'ziggy-js';
 import AppLogo from './app-logo';
 
 const mainNavItems: NavItem[] = [
     {
         title: 'Dashboard',
-        href: '/dashboard',
+        href: route('dashboard'),
         icon: LayoutGrid,
     },
     {
         title: 'Users',
-        href: '/users',
+        href: route('users.index'),
         icon: Users,
     },
     {
         title: 'HubSpot Logs',
-        href: '/hubspot-logs',
+        href: route('hubspot-logs.index'),
         icon: Activity,
     },
     {
         title: 'Channel Partners Sync Logs',
-        href: '/channel-partners-sync-logs',
+        href: route('channel-partners-sync-logs.index'),
         icon: BookOpen,
     },
     {
         title: 'Contacts',
-        href: '/contacts',
+        href: route('contacts.index'),
         icon: UserCheck,
     },
     {
         title: 'Submissions',
-        href: '/submissions',
+        href: route('submissions.index'),
         icon: FileText,
     },
     {
         title: 'Collaterals',
-        href: '/collaterals',
+        href: route('collaterals.index'),
         icon: Folder,
     },
 ];
@@ -56,7 +57,7 @@ export function AppSidebar() {
                 <SidebarMenu>
                     <SidebarMenuItem>
                         <SidebarMenuButton size="lg" asChild>
-                            <Link href="/dashboard" prefetch>
+                            <Link href={route('dashboard')} prefetch>
                                 <AppLogo />
                             </Link>
                         </SidebarMenuButton>

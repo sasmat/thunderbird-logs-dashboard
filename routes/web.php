@@ -1,5 +1,11 @@
 <?php
 
+use App\Http\Controllers\ChannelPartnersSyncLogController;
+use App\Http\Controllers\CollateralController;
+use App\Http\Controllers\ContactController;
+use App\Http\Controllers\HubSpotWebHooksLogController;
+use App\Http\Controllers\SubmissionController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -13,28 +19,28 @@ Route::middleware(['auth', 'verified'])->group(function () {
     })->name('dashboard');
 
     // User Management Routes
-    Route::resource('users', \App\Http\Controllers\UserController::class);
+    Route::resource('users', UserController::class);
 
     // HubSpot Webhook Logs Routes
-    Route::resource('hubspot-logs', \App\Http\Controllers\HubSpotWebHooksLogController::class)
+    Route::resource('hubspot-logs', HubSpotWebHooksLogController::class)
         ->only(['index', 'show', 'destroy'])
         ->parameters(['hubspot-logs' => 'hubspotLog']);
-    Route::get('hubspot-logs/export', [\App\Http\Controllers\HubSpotWebHooksLogController::class, 'export'])
+    Route::get('hubspot-logs/export', [HubSpotWebHooksLogController::class, 'export'])
         ->name('hubspot-logs.export');
 
     // Channel Partners Sync Logs Routes
-    Route::resource('channel-partners-sync-logs', \App\Http\Controllers\ChannelPartnersSyncLogController::class)
+    Route::resource('channel-partners-sync-logs', ChannelPartnersSyncLogController::class)
         ->only(['index', 'show'])
         ->parameters(['channel-partners-sync-logs' => 'log']);
 
     // Contact Management Routes
-    Route::resource('contacts', \App\Http\Controllers\ContactController::class);
+    Route::resource('contacts', ContactController::class);
 
     // Submission Management Routes
-    Route::resource('submissions', \App\Http\Controllers\SubmissionController::class);
+    Route::resource('submissions', SubmissionController::class);
 
     // Collateral Management Routes
-    Route::resource('collaterals', \App\Http\Controllers\CollateralController::class);
+    Route::resource('collaterals', CollateralController::class);
 
     // Additional table routes can be added here as needed
 });
