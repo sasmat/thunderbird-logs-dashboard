@@ -22,11 +22,19 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('hubspot-logs/export', [\App\Http\Controllers\HubSpotWebHooksLogController::class, 'export'])
         ->name('hubspot-logs.export');
 
+    // Channel Partners Sync Logs Routes
+    Route::resource('channel-partners-sync-logs', \App\Http\Controllers\ChannelPartnersSyncLogController::class)
+        ->only(['index', 'show'])
+        ->parameters(['channel-partners-sync-logs' => 'log']);
+
     // Contact Management Routes
     Route::resource('contacts', \App\Http\Controllers\ContactController::class);
 
     // Submission Management Routes
     Route::resource('submissions', \App\Http\Controllers\SubmissionController::class);
+
+    // Collateral Management Routes
+    Route::resource('collaterals', \App\Http\Controllers\CollateralController::class);
 
     // Additional table routes can be added here as needed
 });

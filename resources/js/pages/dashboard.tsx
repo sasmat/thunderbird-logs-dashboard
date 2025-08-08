@@ -2,7 +2,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import AppLayout from '@/layouts/app-layout';
 import { type BreadcrumbItem } from '@/types';
 import { Head, Link } from '@inertiajs/react';
-import { Users, Activity, UserCheck, FileText, Database, BarChart3 } from 'lucide-react';
+import { Users, Activity, UserCheck, FileText, Database, BarChart3, Building } from 'lucide-react';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -43,6 +43,14 @@ const dashboardCards = [
         icon: FileText,
         color: 'text-orange-600',
         bgColor: 'bg-orange-50 dark:bg-orange-950/20',
+    },
+    {
+        title: 'Collaterals',
+        description: 'Manage collateral properties and assets with their valuations',
+        href: '/collaterals',
+        icon: Building,
+        color: 'text-teal-600',
+        bgColor: 'bg-teal-50 dark:bg-teal-950/20',
     },
     {
         title: 'Database Tables',
