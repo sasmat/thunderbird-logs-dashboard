@@ -8,6 +8,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { ArrowLeft, Save } from 'lucide-react';
 import { type BreadcrumbItem } from '@/types';
+import { route } from 'ziggy-js';
 
 interface Contact {
     id: number;
@@ -20,9 +21,9 @@ interface Props {
 }
 
 const breadcrumbs: BreadcrumbItem[] = [
-    { title: 'Dashboard', href: '/dashboard' },
-    { title: 'Submissions', href: '/submissions' },
-    { title: 'Create Submission', href: '/submissions/create' },
+    { title: 'Dashboard', href: route('dashboard') },
+    { title: 'Submissions', href: route('submissions.index') },
+    { title: 'Create Submission', href: route('submissions.create') },
 ];
 
 export default function CreateSubmission({ contacts }: Props) {
@@ -41,7 +42,7 @@ export default function CreateSubmission({ contacts }: Props) {
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        post('/submissions', {
+        post(route('submissions.store'), {
             transform: (data) => ({
                 ...data,
                 is_business_state_valid: data.is_business_state_valid === 'none' ? '' : data.is_business_state_valid,
@@ -55,7 +56,7 @@ export default function CreateSubmission({ contacts }: Props) {
 
             <div className="space-y-6">
                 <div className="flex items-center gap-4">
-                    <Link href="/submissions">
+                    <Link href={route('submissions.index')}>
                         <Button variant="outline" size="sm">
                             <ArrowLeft className="mr-2 h-4 w-4" />
                             Back to Submissions
@@ -287,7 +288,7 @@ export default function CreateSubmission({ contacts }: Props) {
                                     <Save className="mr-2 h-4 w-4" />
                                     {processing ? 'Creating...' : 'Create Submission'}
                                 </Button>
-                                <Link href="/submissions">
+                                <Link href={route('submissions.index')}>
                                     <Button type="button" variant="outline">
                                         Cancel
                                     </Button>

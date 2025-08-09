@@ -5,6 +5,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Badge } from '@/components/ui/badge';
 import { ArrowLeft, Edit, Mail, Calendar, CheckCircle, XCircle } from 'lucide-react';
 import { type BreadcrumbItem } from '@/types';
+import { route } from 'ziggy-js';
 
 interface User {
     id: number;
@@ -19,10 +20,10 @@ interface Props {
     user: User;
 }
 
-const breadcrumbs: BreadcrumbItem[] = [
-    { title: 'Dashboard', href: '/dashboard' },
-    { title: 'Users', href: '/users' },
-    { title: 'User Details', href: '#' },
+const getBreadcrumbs = (user: User): BreadcrumbItem[] => [
+    { title: 'Dashboard', href: route('dashboard') },
+    { title: 'Users', href: route('users.index') },
+    { title: user.name, href: route('users.show', user.id) },
 ];
 
 export default function ShowUser({ user }: Props) {
@@ -37,13 +38,13 @@ export default function ShowUser({ user }: Props) {
     };
 
     return (
-        <AppLayout breadcrumbs={breadcrumbs}>
+        <AppLayout breadcrumbs={getBreadcrumbs(user)}>
             <Head title={`User: ${user.name}`} />
 
             <div className="space-y-6">
                 <div className="flex items-center justify-between">
                     <div className="flex items-center gap-4">
-                        <Link href="/users">
+                        <Link href={route('users.index')}>
                             <Button variant="outline" size="sm">
                                 <ArrowLeft className="mr-2 h-4 w-4" />
                                 Back to Users
@@ -56,7 +57,7 @@ export default function ShowUser({ user }: Props) {
                             </p>
                         </div>
                     </div>
-                    <Link href={`/users/${user.id}/edit`}>
+                    <Link href={route('users.edit', user.id)}>
                         <Button>
                             <Edit className="mr-2 h-4 w-4" />
                             Edit User
@@ -160,7 +161,7 @@ export default function ShowUser({ user }: Props) {
                     </CardHeader>
                     <CardContent>
                         <div className="flex gap-4">
-                            <Link href={`/users/${user.id}/edit`}>
+                            <Link href={route('users.edit', user.id)}>
                                 <Button variant="outline">
                                     <Edit className="mr-2 h-4 w-4" />
                                     Edit User

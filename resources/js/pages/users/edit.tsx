@@ -7,6 +7,7 @@ import { Label } from '@/components/ui/label';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { ArrowLeft, Save } from 'lucide-react';
 import { type BreadcrumbItem } from '@/types';
+import { route } from 'ziggy-js';
 
 interface User {
     id: number;
@@ -18,10 +19,10 @@ interface Props {
     user: User;
 }
 
-const breadcrumbs: BreadcrumbItem[] = [
-    { title: 'Dashboard', href: '/dashboard' },
-    { title: 'Users', href: '/users' },
-    { title: 'Edit User', href: '#' },
+const getBreadcrumbs = (user: User): BreadcrumbItem[] => [
+    { title: 'Dashboard', href: route('dashboard') },
+    { title: 'Users', href: route('users.index') },
+    { title: 'Edit User', href: route('users.edit', user.id) },
 ];
 
 export default function EditUser({ user }: Props) {
@@ -34,16 +35,16 @@ export default function EditUser({ user }: Props) {
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        put(`/users/${user.id}`);
+        put(route('users.update', user.id));
     };
 
     return (
-        <AppLayout breadcrumbs={breadcrumbs}>
+        <AppLayout breadcrumbs={getBreadcrumbs(user)}>
             <Head title={`Edit User: ${user.name}`} />
 
             <div className="space-y-6">
                 <div className="flex items-center gap-4">
-                    <Link href="/users">
+                    <Link href={route('users.index')}>
                         <Button variant="outline" size="sm">
                             <ArrowLeft className="mr-2 h-4 w-4" />
                             Back to Users
@@ -148,12 +149,12 @@ export default function EditUser({ user }: Props) {
                                     <Save className="mr-2 h-4 w-4" />
                                     {processing ? 'Updating...' : 'Update User'}
                                 </Button>
-                                <Link href="/users">
+                                <Link href={route('users.index')}>
                                     <Button type="button" variant="outline">
                                         Cancel
                                     </Button>
                                 </Link>
-                                <Link href={`/users/${user.id}`}>
+                                <Link href={route('users.show', user.id)}>
                                     <Button type="button" variant="outline">
                                         View User
                                     </Button>

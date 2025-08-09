@@ -7,11 +7,12 @@ import { Label } from '@/components/ui/label';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { ArrowLeft, Save } from 'lucide-react';
 import { type BreadcrumbItem } from '@/types';
+import { route } from 'ziggy-js';
 
 const breadcrumbs: BreadcrumbItem[] = [
-    { title: 'Dashboard', href: '/dashboard' },
-    { title: 'Users', href: '/users' },
-    { title: 'Create User', href: '/users/create' },
+    { title: 'Dashboard', href: route('dashboard') },
+    { title: 'Users', href: route('users.index') },
+    { title: 'Create User', href: route('users.create') },
 ];
 
 export default function CreateUser() {
@@ -24,7 +25,7 @@ export default function CreateUser() {
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        post('/users');
+        post(route('users.store'));
     };
 
     return (
@@ -33,7 +34,7 @@ export default function CreateUser() {
 
             <div className="space-y-6">
                 <div className="flex items-center gap-4">
-                    <Link href="/users">
+                    <Link href={route('users.index')}>
                         <Button variant="outline" size="sm">
                             <ArrowLeft className="mr-2 h-4 w-4" />
                             Back to Users
@@ -129,7 +130,7 @@ export default function CreateUser() {
                                     <Save className="mr-2 h-4 w-4" />
                                     {processing ? 'Creating...' : 'Create User'}
                                 </Button>
-                                <Link href="/users">
+                                <Link href={route('users.index')}>
                                     <Button type="button" variant="outline">
                                         Cancel
                                     </Button>

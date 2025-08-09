@@ -8,6 +8,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { ArrowLeft, Save } from 'lucide-react';
 import { type BreadcrumbItem } from '@/types';
+import { route } from 'ziggy-js';
 
 interface Contact {
     id: number;
@@ -34,10 +35,10 @@ interface Props {
     contacts: Contact[];
 }
 
-const breadcrumbs: BreadcrumbItem[] = [
-    { title: 'Dashboard', href: '/dashboard' },
-    { title: 'Submissions', href: '/submissions' },
-    { title: 'Edit Submission', href: '#' },
+const getBreadcrumbs = (submission: Submission): BreadcrumbItem[] => [
+    { title: 'Dashboard', href: route('dashboard') },
+    { title: 'Submissions', href: route('submissions.index') },
+    { title: 'Edit Submission', href: route('submissions.edit', submission.id) },
 ];
 
 export default function EditSubmission({ submission, contacts }: Props) {
@@ -56,7 +57,7 @@ export default function EditSubmission({ submission, contacts }: Props) {
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        put(`/submissions/${submission.id}`, {
+        put(route('submissions.update', submission.id), {
             transform: (data) => ({
                 ...data,
                 is_business_state_valid: data.is_business_state_valid === 'none' ? '' : data.is_business_state_valid,
@@ -65,7 +66,7 @@ export default function EditSubmission({ submission, contacts }: Props) {
     };
 
     return (
-        <AppLayout breadcrumbs={breadcrumbs}>
+        <AppLayout breadcrumbs={getBreadcrumbs(submission)}>
             <Head title={`Edit Submission: ${submission.contact_id}`} />
 
             <div className="space-y-6">

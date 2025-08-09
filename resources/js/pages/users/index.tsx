@@ -21,6 +21,7 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { Plus, Search, MoreHorizontal, Edit, Trash2, Eye, X, Users, UserCheck, UserX } from 'lucide-react';
 import { type BreadcrumbItem } from '@/types';
+import { route } from 'ziggy-js';
 
 interface User {
     id: number;
@@ -51,8 +52,8 @@ interface Props {
 }
 
 const breadcrumbs: BreadcrumbItem[] = [
-    { title: 'Dashboard', href: '/dashboard' },
-    { title: 'Users', href: '/users' },
+    { title: 'Dashboard', href: route('dashboard') },
+    { title: 'Users', href: route('users.index') },
 ];
 
 export default function UsersIndex({ users, filters }: Props) {
@@ -62,7 +63,7 @@ export default function UsersIndex({ users, filters }: Props) {
     const handleSearch = (e: React.FormEvent) => {
         e.preventDefault();
         setIsSearching(true);
-        router.get('/users', { search: searchTerm }, {
+        router.get(route('users.index'), { search: searchTerm }, {
             preserveState: true,
             onFinish: () => setIsSearching(false)
         });
@@ -71,7 +72,7 @@ export default function UsersIndex({ users, filters }: Props) {
     const handleClearSearch = () => {
         setSearchTerm('');
         setIsSearching(true);
-        router.get('/users', {}, {
+        router.get(route('users.index'), {}, {
             preserveState: true,
             onFinish: () => setIsSearching(false)
         });
@@ -79,7 +80,7 @@ export default function UsersIndex({ users, filters }: Props) {
 
     const handleDelete = (user: User) => {
         if (confirm(`Are you sure you want to delete ${user.name}?`)) {
-            router.delete(`/users/${user.id}`);
+            router.delete(route('users.destroy', user.id));
         }
     };
 
@@ -110,7 +111,7 @@ export default function UsersIndex({ users, filters }: Props) {
                             Manage system users and their permissions
                         </p>
                     </div>
-                    <Link href="/users/create">
+                    <Link href={route('users.create')}>
                         <Button>
                             <Plus className="mr-2 h-4 w-4" />
                             Add User
@@ -241,7 +242,7 @@ export default function UsersIndex({ users, filters }: Props) {
                                                             </p>
                                                         </div>
                                                         {!filters.search && (
-                                                            <Link href="/users/create">
+                                                            <Link href={route('users.create')}>
                                                                 <Button>
                                                                     <Plus className="mr-2 h-4 w-4" />
                                                                     Add First User
@@ -302,13 +303,13 @@ export default function UsersIndex({ users, filters }: Props) {
                                                             </DropdownMenuTrigger>
                                                             <DropdownMenuContent align="end" className="w-48">
                                                                 <DropdownMenuItem asChild>
-                                                                    <Link href={`/users/${user.id}`} className="cursor-pointer">
+                                                                    <Link href={route('users.show', user.id)} className="cursor-pointer">
                                                                         <Eye className="mr-2 h-4 w-4" />
                                                                         View Details
                                                                     </Link>
                                                                 </DropdownMenuItem>
                                                                 <DropdownMenuItem asChild>
-                                                                    <Link href={`/users/${user.id}/edit`} className="cursor-pointer">
+                                                                    <Link href={route('users.edit', user.id)} className="cursor-pointer">
                                                                         <Edit className="mr-2 h-4 w-4" />
                                                                         Edit User
                                                                     </Link>
