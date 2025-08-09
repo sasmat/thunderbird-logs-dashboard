@@ -7,7 +7,7 @@ import { Users, Activity, UserCheck, FileText, Database, BarChart3, Building } f
 const breadcrumbs: BreadcrumbItem[] = [
     {
         title: 'Dashboard',
-        href: '/dashboard',
+        href: route('dashboard'),
     },
 ];
 
@@ -15,7 +15,7 @@ const dashboardCards = [
     {
         title: 'User Management',
         description: 'Manage system users, create new accounts, and handle permissions',
-        href: '/users',
+        href: route('users.index'),
         icon: Users,
         color: 'text-blue-600',
         bgColor: 'bg-blue-50 dark:bg-blue-950/20',
@@ -23,7 +23,7 @@ const dashboardCards = [
     {
         title: 'HubSpot Webhook Logs',
         description: 'View and analyze HubSpot webhook logs and processing status',
-        href: '/hubspot-logs',
+        href: route('hubspot-logs.index'),
         icon: Activity,
         color: 'text-green-600',
         bgColor: 'bg-green-50 dark:bg-green-950/20',
@@ -31,7 +31,7 @@ const dashboardCards = [
     {
         title: 'Contacts',
         description: 'Manage contact information and view related submissions',
-        href: '/contacts',
+        href: route('contacts.index'),
         icon: UserCheck,
         color: 'text-purple-600',
         bgColor: 'bg-purple-50 dark:bg-purple-950/20',
@@ -39,7 +39,7 @@ const dashboardCards = [
     {
         title: 'Submissions',
         description: 'View and manage loan submissions and their details',
-        href: '/submissions',
+        href: route('submissions.index'),
         icon: FileText,
         color: 'text-orange-600',
         bgColor: 'bg-orange-50 dark:bg-orange-950/20',
@@ -47,7 +47,7 @@ const dashboardCards = [
     {
         title: 'Collaterals',
         description: 'Manage collateral properties and assets with their valuations',
-        href: '/collaterals',
+        href: route('collaterals.index'),
         icon: Building,
         color: 'text-teal-600',
         bgColor: 'bg-teal-50 dark:bg-teal-950/20',

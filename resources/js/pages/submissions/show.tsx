@@ -5,6 +5,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Badge } from '@/components/ui/badge';
 import { ArrowLeft, Edit, DollarSign, Calendar, User, Building, FileText, TrendingUp } from 'lucide-react';
 import { type BreadcrumbItem } from '@/types';
+import { route } from 'ziggy-js';
 
 interface Contact {
     id: number;
@@ -52,10 +53,10 @@ interface Props {
     submission: Submission;
 }
 
-const breadcrumbs: BreadcrumbItem[] = [
-    { title: 'Dashboard', href: '/dashboard' },
-    { title: 'Submissions', href: '/submissions' },
-    { title: 'Submission Details', href: '#' },
+const getBreadcrumbs = (submission: Submission): BreadcrumbItem[] => [
+    { title: 'Dashboard', href: route('dashboard') },
+    { title: 'Submissions', href: route('submissions.index') },
+    { title: 'Submission Details', href: route('submissions.show', submission.id) },
 ];
 
 export default function ShowSubmission({ submission }: Props) {
@@ -98,13 +99,13 @@ export default function ShowSubmission({ submission }: Props) {
     };
 
     return (
-        <AppLayout breadcrumbs={breadcrumbs}>
+        <AppLayout breadcrumbs={getBreadcrumbs(submission)}>
             <Head title={`Submission: ${submission.contact_id}`} />
 
             <div className="space-y-6">
                 <div className="flex items-center justify-between">
                     <div className="flex items-center gap-4">
-                        <Link href="/submissions">
+                        <Link href={route('submissions.index')}>
                             <Button variant="outline" size="sm">
                                 <ArrowLeft className="mr-2 h-4 w-4" />
                                 Back to Submissions
@@ -117,7 +118,7 @@ export default function ShowSubmission({ submission }: Props) {
                             </p>
                         </div>
                     </div>
-                    <Link href={`/submissions/${submission.id}/edit`}>
+                    <Link href={route('submissions.edit', submission.id)}>
                         <Button>
                             <Edit className="mr-2 h-4 w-4" />
                             Edit Submission

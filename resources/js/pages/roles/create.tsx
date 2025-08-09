@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Head, Link, useForm } from '@inertiajs/react';
+import { Head, Link, router, useForm } from '@inertiajs/react';
 import AppLayout from '@/layouts/app-layout';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -23,9 +23,9 @@ interface Props {
 }
 
 const breadcrumbs: BreadcrumbItem[] = [
-    { title: 'Dashboard', href: '/dashboard' },
-    { title: 'Roles', href: '/roles' },
-    { title: 'Create Role', href: '/roles/create' },
+    { title: 'Dashboard', href: route('dashboard')},
+    { title: 'Roles', href: route('roles.index') },
+    { title: 'Create Role', href: route('roles.create') },
 ];
 
 export default function CreateRole({ permissions }: Props) {

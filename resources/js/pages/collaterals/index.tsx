@@ -22,6 +22,7 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { Plus, Search, MoreHorizontal, Edit, Trash2, Eye, Building, MapPin, DollarSign } from 'lucide-react';
 import { type BreadcrumbItem } from '@/types';
+import { route } from 'ziggy-js';
 
 interface Contact {
     id: number;
@@ -74,8 +75,8 @@ interface Props {
 }
 
 const breadcrumbs: BreadcrumbItem[] = [
-    { title: 'Dashboard', href: '/dashboard' },
-    { title: 'Collaterals', href: '/collaterals' },
+    { title: 'Dashboard', href: route('dashboard') },
+    { title: 'Collaterals', href: route('collaterals.index') },
 ];
 
 const formatCurrency = (value: number | null): string => {
@@ -102,12 +103,12 @@ export default function CollateralsIndex({ collaterals, filters }: Props) {
             state: searchFilters.state === 'all' ? '' : searchFilters.state,
             status: searchFilters.status === 'all' ? '' : searchFilters.status,
         };
-        router.get('/collaterals', filteredParams, { preserveState: true });
+        router.get(route('collaterals.index'), filteredParams, { preserveState: true });
     };
 
     const handleDelete = (collateral: Collateral) => {
         if (confirm(`Are you sure you want to delete collateral #${collateral.collateral_id}?`)) {
-            router.delete(`/collaterals/${collateral.collateral_id}`);
+            router.delete(route('collaterals.destroy', collateral.collateral_id));
         }
     };
 
@@ -123,7 +124,7 @@ export default function CollateralsIndex({ collaterals, filters }: Props) {
                             Manage collateral properties and assets
                         </p>
                     </div>
-                    <Link href="/collaterals/create">
+                    <Link href={route('collaterals.create')}>
                         <Button>
                             <Plus className="mr-2 h-4 w-4" />
                             Add Collateral
@@ -340,20 +341,20 @@ export default function CollateralsIndex({ collaterals, filters }: Props) {
                                                             </DropdownMenuTrigger>
                                                             <DropdownMenuContent align="end">
                                                                 <DropdownMenuItem asChild>
-                                                                    <Link href={`/collaterals/${collateral.collateral_id}`}>
+                                                                    <Link href={route('collaterals.show', collateral.collateral_id)}>
                                                                         <Eye className="mr-2 h-4 w-4" />
                                                                         View Details
                                                                     </Link>
                                                                 </DropdownMenuItem>
                                                                 <DropdownMenuItem asChild>
-                                                                    <Link href={`/collaterals/${collateral.collateral_id}/edit`}>
+                                                                    <Link href={route('collaterals.edit', collateral.collateral_id)}>
                                                                         <Edit className="mr-2 h-4 w-4" />
                                                                         Edit
                                                                     </Link>
                                                                 </DropdownMenuItem>
                                                                 {collateral.contact && (
                                                                     <DropdownMenuItem asChild>
-                                                                        <Link href={`/contacts/${collateral.contact.id}`}>
+                                                                        <Link href={route('contacts.show', collateral.contact.id)}>
                                                                             <Eye className="mr-2 h-4 w-4" />
                                                                             View Contact
                                                                         </Link>
@@ -361,7 +362,7 @@ export default function CollateralsIndex({ collaterals, filters }: Props) {
                                                                 )}
                                                                 {collateral.submission && (
                                                                     <DropdownMenuItem asChild>
-                                                                        <Link href={`/submissions/${collateral.submission.id}`}>
+                                                                        <Link href={route('submissions.show', collateral.submission.id)}>
                                                                             <Eye className="mr-2 h-4 w-4" />
                                                                             View Submission
                                                                         </Link>

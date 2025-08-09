@@ -63,8 +63,8 @@ interface Props {
 }
 
 const breadcrumbs: BreadcrumbItem[] = [
-    { title: 'Dashboard', href: '/dashboard' },
-    { title: 'Channel Partners Sync Logs', href: '/channel-partners-sync-logs' },
+    { title: 'Dashboard', href: route('dashboard') },
+    { title: 'Channel Partners Sync Logs', href: route('channel-partners-sync-logs.index') },
 ];
 
 export default function ChannelPartnersSyncLogsIndex({ logs, filters }: Props) {

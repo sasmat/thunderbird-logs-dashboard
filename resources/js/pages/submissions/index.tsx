@@ -22,6 +22,7 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { Plus, Search, MoreHorizontal, Edit, Trash2, Eye, DollarSign, Calendar } from 'lucide-react';
 import { type BreadcrumbItem } from '@/types';
+import { route } from 'ziggy-js';
 
 interface Contact {
     id: number;
@@ -71,8 +72,8 @@ interface Props {
 }
 
 const breadcrumbs: BreadcrumbItem[] = [
-    { title: 'Dashboard', href: '/dashboard' },
-    { title: 'Submissions', href: '/submissions' },
+    { title: 'Dashboard', href: route('dashboard') },
+    { title: 'Submissions', href: route('submissions.index') },
 ];
 
 export default function SubmissionsIndex({ submissions, filters }: Props) {
@@ -90,12 +91,12 @@ export default function SubmissionsIndex({ submissions, filters }: Props) {
             ...searchFilters,
             is_business_state_valid: searchFilters.is_business_state_valid === 'all' ? '' : searchFilters.is_business_state_valid,
         };
-        router.get('/submissions', filteredParams, { preserveState: true });
+        router.get(route('submissions.index'), filteredParams, { preserveState: true });
     };
 
     const handleDelete = (submission: Submission) => {
         if (confirm(`Are you sure you want to delete submission for contact ${submission.contact_id}?`)) {
-            router.delete(`/submissions/${submission.id}`);
+            router.delete(route('submissions.destroy', submission.id));
         }
     };
 
@@ -132,7 +133,7 @@ export default function SubmissionsIndex({ submissions, filters }: Props) {
                             Manage loan submissions and their details
                         </p>
                     </div>
-                    <Link href="/submissions/create">
+                    <Link href={route('submissions.create')}>
                         <Button>
                             <Plus className="mr-2 h-4 w-4" />
                             Add Submission
@@ -225,7 +226,7 @@ export default function SubmissionsIndex({ submissions, filters }: Props) {
                                             loan_amount_min: '',
                                             loan_amount_max: '',
                                         });
-                                        router.get('/submissions');
+                                        router.get(route('submissions.index'));
                                     }}
                                 >
                                     Clear Filters

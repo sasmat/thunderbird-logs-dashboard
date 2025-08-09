@@ -71,7 +71,7 @@ export default function EditSubmission({ submission, contacts }: Props) {
 
             <div className="space-y-6">
                 <div className="flex items-center gap-4">
-                    <Link href="/submissions">
+                    <Link href={route('submissions.index')}>
                         <Button variant="outline" size="sm">
                             <ArrowLeft className="mr-2 h-4 w-4" />
                             Back to Submissions

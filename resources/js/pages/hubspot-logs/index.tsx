@@ -62,8 +62,8 @@ interface Props {
 }
 
 const breadcrumbs: BreadcrumbItem[] = [
-    { title: 'Dashboard', href: '/dashboard' },
-    { title: 'HubSpot Logs', href: '/hubspot-logs' },
+    { title: 'Dashboard', href: route('dashboard') },
+    { title: 'HubSpot Logs', href: route('hubspot-logs.index')},
 ];
 
 export default function HubSpotLogsIndex({ logs, filters }: Props) {

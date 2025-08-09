@@ -1,4 +1,4 @@
-import { Head, Link } from '@inertiajs/react';
+import { Head, Link, router } from '@inertiajs/react';
 import AppLayout from '@/layouts/app-layout';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -35,8 +35,8 @@ interface Props {
 }
 
 const breadcrumbs: BreadcrumbItem[] = [
-    { title: 'Dashboard', href: '/dashboard' },
-    { title: 'HubSpot Logs', href: '/hubspot-logs' },
+    { title: 'Dashboard', href: route('dashboard')},
+    { title: 'HubSpot Logs', href: route('hubspot-logs.index')},
     { title: 'Log Details', href: '#' },
 ];
 

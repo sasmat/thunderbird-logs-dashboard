@@ -44,8 +44,8 @@ interface Props {
 }
 
 const breadcrumbs: BreadcrumbItem[] = [
-    { title: 'Dashboard', href: '/dashboard' },
-    { title: 'Collaterals', href: '/collaterals' },
+    { title: 'Dashboard', href: route('dashboard')},
+    { title: 'Collaterals', href: route('collaterals.index') },
     { title: 'Collateral Details', href: '#' },
 ];
 

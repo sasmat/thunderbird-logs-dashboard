@@ -22,6 +22,7 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { Plus, Search, MoreHorizontal, Edit, Trash2, Eye, Mail, MapPin } from 'lucide-react';
 import { type BreadcrumbItem } from '@/types';
+import { route } from 'ziggy-js';
 
 interface Contact {
     id: number;
@@ -56,8 +57,8 @@ interface Props {
 }
 
 const breadcrumbs: BreadcrumbItem[] = [
-    { title: 'Dashboard', href: '/dashboard' },
-    { title: 'Contacts', href: '/contacts' },
+    { title: 'Dashboard', href: route('dashboard') },
+    { title: 'Contacts', href: route('contacts.index') },
 ];
 
 export default function ContactsIndex({ contacts, filters }: Props) {
@@ -73,12 +74,12 @@ export default function ContactsIndex({ contacts, filters }: Props) {
             ...searchFilters,
             business_state: searchFilters.business_state === 'all' ? '' : searchFilters.business_state,
         };
-        router.get('/contacts', filteredParams, { preserveState: true });
+        router.get(route('contacts.index'), filteredParams, { preserveState: true });
     };
 
     const handleDelete = (contact: Contact) => {
         if (confirm(`Are you sure you want to delete contact ${contact.contact_id}?`)) {
-            router.delete(`/contacts/${contact.id}`);
+            router.delete(route('contacts.destroy', contact.id));
         }
     };
 
@@ -94,7 +95,7 @@ export default function ContactsIndex({ contacts, filters }: Props) {
                             Manage contact information and view related data
                         </p>
                     </div>
-                    <Link href="/contacts/create">
+                    <Link href={route('contacts.create')}>
                         <Button>
                             <Plus className="mr-2 h-4 w-4" />
                             Add Contact
@@ -169,7 +170,7 @@ export default function ContactsIndex({ contacts, filters }: Props) {
                                             email: '',
                                             business_state: 'all',
                                         });
-                                        router.get('/contacts');
+                                        router.get(route('contacts.index'));
                                     }}
                                 >
                                     Clear Filters
